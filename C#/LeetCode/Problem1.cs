@@ -21,11 +21,11 @@ public class Problem1
     {
         int[] nums = [2, 7, 11, 15];
         var target = 9;
-        int[] soluliton1 = twoSum(nums, target);
-        Console.WriteLine(string.Join(", ", soluliton1));
+        Console.WriteLine(string.Join(", ", twoSum(nums, target)));
+        Console.WriteLine(string.Join(", ", twoSum2(nums, target)));
     }
 
-    private static int[] twoSum(int[] nums, int target)
+    public static int[] twoSum(int[] nums, int target)
     {
         for (int i = 0; i < nums.Length; i++)
         {
@@ -33,11 +33,25 @@ public class Problem1
             {
                 if (nums[i] + nums[j] == target)
                 {
-                    return new int[] { nums[i], nums[j] };
+                    return new int[] { i, j };
                 }
             }
         }
-        return new int[0];
+        return nums;
+    }
+
+
+    private static int[] twoSum2(int[] nums, int target)
+    {
+        Dictionary<int, int> dictionary = new Dictionary<int, int>();
+        for (int i = 0; i < nums.Length; i++)
+        {
+           if(dictionary.TryGetValue(nums[i], out int dictionaryIndex)){
+                return new int[]{dictionaryIndex, i};
+           }
+           dictionary[target - nums[i]] = i;
+        }
+        return nums;
     }
 }
 

@@ -1,4 +1,3 @@
-package ArraysAndHashMap;
 // Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.
 
 // You may assume that each input would have exactly one solution, and you may not use the same element twice.
@@ -25,60 +24,58 @@ public class Problem1 {
 	public static void main(String[] args) {
 		int[] nums = { 2, 7, 11, 15 };
 		var target = 9;
-		int[] soluliton1 = twoSum(nums, target);
-		System.out.println(Arrays.toString(soluliton1));
 
 		int[] nums2 = { 3, 2, 4 };
 		var target2 = 6;
-		int[] soluliton2 = twoSum(nums2, target2);
-		System.out.println(Arrays.toString(soluliton2));
 
 		int[] nums3 = { 3, 3 };
 		var target3 = 6;
-		int[] soluliton3 = twoSum(nums3, target3);
-		System.out.println(Arrays.toString(soluliton3));
 
+		System.out.println(Arrays.toString(twoSum(nums, target)));
+		System.out.println(Arrays.toString(twoSum(nums2, target2)));
+		System.out.println(Arrays.toString(twoSum(nums3, target3)));
+		
 		System.out.println('\n');
-
-		int[] hashmap1 = twoSum2(nums, target);
-		System.out.println(Arrays.toString(hashmap1));
-		System.out.println('\n');
-
-		int[] hashmap2 = twoSum2(nums2, target2);
-		System.out.println(Arrays.toString(hashmap2));
-		System.out.println('\n');
-
-		int[] hashmap3 = twoSum2(nums3, target3);
-		System.out.println(Arrays.toString(hashmap3));
-		System.out.println('\n');
+		
+		System.out.println(Arrays.toString(twoSum2(nums, target)));
+		System.out.println(Arrays.toString(twoSum2(nums2, target2)));
+		System.out.println(Arrays.toString(twoSum2(nums3, target3)));
 	}
 
-	private static int[] twoSum(int[] nums, int target) {
-		for (int i = 0; i < nums.length; i++) {
-			for (int j = i + 1; j < nums.length; j++) {
-				if (nums[i] + nums[j] == target) {
-					return new int[] { i, j };
-				}
-			}
-		}
-		return null;
-	}
+	public static int[] twoSum(int[] nums, int target){
+        for(int i = 0; i < nums.length; i++){
+            for (int j = 1; j < nums.length; j++) {
+                if(nums[i] + nums[j] == target){
+                    return new int[]{i, j};
+                }
+            }
+        }
+        return nums;
+    }
 
+	/*
+ 	* for a hashMap in order to save memory, we are gonna have to substract base on the targe, for instance
+ 	* { 5, 2, 4 } to get 6 we are gonna substract from the target our index value 
+ 	* so the key will contain the amount of numbers needed to get to the target and the value will be the index in this case we start at index 0 that contains 5 so
+ 	* 6 - 5 = 1 will be stored as key = 1 (amount of numbers need to add to get the target) and value = 0 (array index)
+ 	* then we will have to check if the next index value exists in our map if not start over
+ 	* in case the like on index 2, we look through our map to get the value of that index and add it to our 
+ 	*   HasMap
+ 	*   K -> V
+ 	*   1 -> 0 
+ 	*   4 -> 1
+ 	*   {2, 1}
+ 	*/
 	// HashMap
-	private static int[] twoSum2(int[] nums, int target) {
-		Map<Integer, Integer> numsHash = new HashMap<>();
-		for (int i = 0; i < nums.length; i++) {
-			numsHash.put(nums[i], i);
-		}
-
-		numsHash.forEach((key, value) -> System.out.println(key + " " + value));
-
-		for (int i = 0; i < nums.length; i++) {
-			int complement = target - nums[i];
-			if (numsHash.containsKey(complement) && numsHash.get(complement) != i) {
-				return new int[] { i, numsHash.get(complement) };
-			}
-		}
-		return null;
-	}
+	public static int[] twoSum2(int[] nums, int target){
+        Map<Integer, Integer> dictionary = new HashMap<>();
+        for(int i = 0; i < nums.length; i++){
+            Integer dictionaryIndex = dictionary.get(nums[i]);
+            if(dictionaryIndex != null){
+                return new int[]{dictionaryIndex, i};
+            }
+            dictionary.put(target - nums[i], i);
+        }
+        return nums;
+    }
 }
