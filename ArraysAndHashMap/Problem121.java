@@ -15,7 +15,34 @@
 
 public class Problem121 {
 	public static void main(String[] args) {
-
+		int[] prices1 = {7, 1, 5, 3, 6, 4}; 
+		int[] prices2 = {7, 6, 4, 3, 1}; 
+		System.out.println("Max Profit for prices1: " + maxProfit(prices1));
+		System.out.println("Max Profit for prices2: " + maxProfit(prices2));
 	}
+
+	/*
+	 * int minPrice = int.MaxValue - inicializamos el minPrice con el valor maximo posible para segurarnos de que cualquier precio en el array sera menor.
+	 * int maxProfit = 0 - inicializamos maxProfit en 0 porque no hemos calculado ningun beneficio aun
+	 * iteramos a traves del array de precios usando foreach
+	 * en cada iteracion
+	 * 				si el precioActual < minPrice, actualizamos minPrice
+	 * 				si el precioActual - minPrice > maxProfit, actualizamos maxProfit
+	 * al final maxProfit tendra el mejor profit
+	 */
+
+	public static int maxProfit(int[] prices) { if (prices.length == 0) return 0;
+		int minPrice = Integer.MAX_VALUE;
+		int maxProfit = 0;
+		
+		for (int price : prices) { 
+			if (price < minPrice) { 
+				minPrice = price; 
+			} 
+			else if (price - minPrice > maxProfit) { 
+				maxProfit = price - minPrice; 
+			} 
+		} return maxProfit; 
+	} 
 
 }

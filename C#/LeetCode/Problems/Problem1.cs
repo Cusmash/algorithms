@@ -17,7 +17,7 @@
 
 public class Problem1
 {
-    public static void Main(string[] args)
+    public static void BusinessLogic()
     {
         int[] nums = [2, 7, 11, 15];
         var target = 9;
